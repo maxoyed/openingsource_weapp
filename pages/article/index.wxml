@@ -1,0 +1,30 @@
+<!--pages/news/detail/index.wxml-->
+<import src="../../wxParse/wxParse.wxml" />
+<view class='news_content'>
+    <view class='title'>
+        <view class='text'>{{title}}</view>
+        <view class='more-info'>
+            <view class='item'>
+                <image class='icon' src='../../images/time.png'></image>
+                <text>{{date}}</text>
+            </view>
+            <view class='item'>
+                <image class='icon' src='../../images/eye.png'></image>
+                <text>{{pageviews}}</text>
+            </view>
+            <view class='item'>
+                <image class='icon' src='../../images/comments.png'></image>
+                <text>{{total_comments}}</text>
+            </view>
+        </view>
+    </view>
+    <view class='article'>
+        <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+    </view>
+    <button class='footer' open-type='share'>
+        分享给好友
+    </button>
+    <button class='fab' bindtap='navToHome'>
+        <image src='../../images/home.png'></image>
+    </button>
+</view>

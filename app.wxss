@@ -1,0 +1,17 @@
+/**app.wxss**/
+/* 引入wxParse */
+@import "/wxParse/wxParse.wxss";
+button {
+  padding: 0;
+  overflow: none;
+  border-radius: 0;
+  background: transparent;
+}
+button::after {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+.button-hover{
+  background: transparent;
+}

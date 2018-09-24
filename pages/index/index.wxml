@@ -1,0 +1,80 @@
+<!--index.wxml-->
+<import src="../../wxParse/wxParse.wxml" />
+<view class='container'>
+    <!-- tab组件 -->
+    <view class='switch_tab'>
+        <view class='tab-item {{current_tab==0?"active":""}}' data-current_tab='0' bindtap='switchTab'>
+            <view class='text'>开源日报</view>
+            <view class='line'></view>
+        </view>
+        <view class='tab-item {{current_tab==1?"active":""}}' data-current_tab='1' bindtap='switchTab'>
+            <view class='text'>开源周报</view>
+            <view class='line'></view>
+        </view>
+        <view class='tab-item {{current_tab==2?"active":""}}' data-current_tab='2' bindtap='switchTab'>
+            <view class='text'>开源活动</view>
+            <view class='line'></view>
+        </view>
+        <view class='tab-item {{current_tab==3?"active":""}}' data-current_tab='3' bindtap='switchTab'>
+            <view class='text'>全部新闻</view>
+            <view class='line'></view>
+        </view>
+        
+    </view>
+
+    <!-- 卡片新闻 -->
+    <view class='news_card' wx:if="{{current_tab==0 || current_tab==1}}">
+        <view class='item'>
+            <image class='cover_image' src='{{news_data.cover_image?news_data.cover_image:"../../images/logo.png"}}' mode='{{news_data.cover_image?"widthFix":"aspectFit"}}' bindtap='goToDetail' data-id='{{news_data.id}}'></image>
+            <view class='text'>
+                <view class='title'>
+                    <view class='title-line'></view>
+                    <view class='title-text {{news_data.title?"":"title-text-fixin"}}'>{{news_data.title}}</view>
+                </view>
+                <view class='excerpt {{news_data.excerpt?"":"excerpt-fixin"}}'>
+                    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+                </view>
+            </view>
+            <view class='share_btn'>
+                <button class='button' hover-class='button_hover' open-type='share'>
+                    分享给好友
+                </button>
+            </view>
+        </view>
+        <image class='backgroud' src='{{news_data.cover_image}}' mode='center'></image>
+    </view>
+
+    <!-- 列表新闻 -->
+    <view class='news_list' wx:else>
+        <view wx:if="{{current_tab == 3}}" class='search-box'>
+            <input class='input' type='text' placeholder='在这里搜索哦~' bindconfirm='search'></input>
+        </view>
+        <block wx:for="{{news_list}}" wx:key="id">
+            <view class='item' bindtap='goToDetail' data-id='{{item.id}}'>
+                <view class='cover-container'>
+                    <image class='cover' src='{{item.cover_image?item.cover_image:"../../images/logo.png"}}'></image>
+                </view>
+                <view class='text'>
+                    <view class='title'>{{item.title}}</view>
+                    <view class='more-info'>
+                        <view class='item'>
+                            <image class='icon' src='../../images/time.png'></image>
+                            <text>{{item.date}}</text>
+                        </view>
+                        <view class='item'>
+                            <image class='icon' src='../../images/eye.png'></image>
+                            <text>{{item.pageviews}}</text>
+                        </view>
+                        <view class='item'>
+                            <image class='icon' src='../../images/comments.png'></image>
+                            <text>{{item.total_comments}}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <button class='load-more' hover-class='load-more-hover' bindtap='getNewsList'>
+            加载更多
+        </button>
+    </view>
+</view>
