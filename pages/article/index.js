@@ -1,13 +1,14 @@
 // pages/news/detail/index.js
-var WxParse = require('../../wxParse/wxParse.js');
 var Api = require('../../utils/api.js');
 var Request = require('../../utils/request.js');
 import config from '../../utils/config.js';
+const app = getApp();
 Page({
 
     // 页面的初始数据
     data: {
-        page: 1
+        page: 1,
+        article: {}
     },
     // 生命周期函数--监听页面加载
     onLoad: function(options) {
@@ -27,7 +28,7 @@ Page({
                     title: title,
                     id: res.data.id,
                     date: res.data.date,
-                    content: res.data.content.rendered,
+                  article: app.towxml.toJson(res.data.content.rendered, 'html'),
                     pageviews: res.data.pageviews,
                     total_comments: res.data.total_comments,
                     cover_image: res.data.content_first_image
@@ -39,9 +40,6 @@ Page({
                     }
                 });
                 wx.hideLoading();
-            })
-            .then(() => {
-                WxParse.wxParse('article', 'html', this.data.content, that, 5);
             })
             .catch(err => {
                 console.log(err);

@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<import src="../../wxParse/wxParse.wxml" />
+<import src="/towxml/entry.wxml"/>
 <view class='container'>
     <!-- tab组件 -->
     <view class='switch_tab'>
@@ -32,7 +32,7 @@
                     <view class='title-text {{news_data.title?"":"title-text-fixin"}}'>{{news_data.title}}</view>
                 </view>
                 <view class='excerpt {{news_data.excerpt?"":"excerpt-fixin"}}'>
-                    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+                    <template is="entry" data="{{...news_data.excerpt}}"/>
                 </view>
             </view>
             <view class='share_btn'>

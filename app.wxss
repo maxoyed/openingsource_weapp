@@ -1,6 +1,8 @@
 /**app.wxss**/
 /* 引入wxParse */
-@import "/wxParse/wxParse.wxss";
+/* @import "/wxParse/wxParse.wxss"; */
+@import '/towxml/style/main.wxss';
+@import '/towxml/style/theme/light.wxss';
 button {
   padding: 0;
   overflow: none;

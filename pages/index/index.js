@@ -1,7 +1,7 @@
-var WxParse = require('../../wxParse/wxParse.js');
 var Api = require('../../utils/api.js');
 var Request = require('../../utils/request.js');
 import config from '../../utils/config.js';
+const app = getApp();
 
 Page({
     data: {
@@ -55,11 +55,6 @@ Page({
         return request_api;
     },
 
-    // wxParse解析html
-    wxParse_binding: function(content){
-        var that = this;
-        WxParse.wxParse('article', 'html', content, that, 5);
-    },
 
     // 获取日报/周报数据
     getCardNews: function (){
@@ -71,17 +66,18 @@ Page({
         Request.get(this.switchNewsApi(current_tab))
             .then(res => {
                 console.log(res);
+              
+              let excerpt = res.data[0].excerpt.rendered || ''
                 var news_data = {
                     id: res.data[0].id,
                     featured_media: res.data[0].featured_media || 0,
                     title: res.data[0].title.rendered || '',
-                    excerpt: res.data[0].excerpt.rendered || '',
-                    cover_image: res.data[0].content_first_image
+                  excerpt: app.towxml.toJson(excerpt, 'html'),
+                  cover_image: res.data[0].post_large_image
                 }
                 this.setData({
                     news_data: news_data
                 });
-                this.wxParse_binding(news_data.excerpt);
                 wx.hideLoading()
             })
             .catch(err => {

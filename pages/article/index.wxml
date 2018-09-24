@@ -1,5 +1,6 @@
 <!--pages/news/detail/index.wxml-->
-<import src="../../wxParse/wxParse.wxml" />
+<import src="/towxml/entry.wxml"/>
+
 <view class='news_content'>
     <view class='title'>
         <view class='text'>{{title}}</view>
@@ -19,7 +20,7 @@
         </view>
     </view>
     <view class='article'>
-        <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+        <template is="entry" data="{{...article}}"/>
     </view>
     <button class='footer' open-type='share'>
         分享给好友
